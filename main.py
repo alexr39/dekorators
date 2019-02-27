@@ -45,16 +45,38 @@
 #
 # a_stand_alone_function
 
+#
+# def a_decorator_passing_arguments(function_to_decorate):
+#     def a_wrapper_accepting_arguments(arg1, arg2):
+#         print('Lets see what i have here:', arg1, arg2)
+#         function_to_decorate(arg1, arg2)
+#     return a_wrapper_accepting_arguments
+#
+#
+# @a_decorator_passing_arguments
+# def print_full_name(first_name, last_name):
+#     print('My name is {} and last name is {}'.format(first_name, last_name))
+#
+#
+# print_full_name('Jakov', 'Melman')
 
-def a_decorator_passing_arguments(function_to_decorate):
-    def a_wrapper_accepting_arguments(arg1, arg2):
-        print('Lets see what i have here:', arg1, arg2)
-        function_to_decorate(arg1, arg2)
-    return a_wrapper_accepting_arguments
 
-@a_decorator_passing_arguments
-def print_full_name(first_name, last_name):
-    print('My name is {} and last name is {}'.format(first_name, last_name))
+def method_friendly_dekorator(method_to_decorate):
+    def wrapper(self, lie):
+        lie -= 3
+        return method_to_decorate(self, lie)
+    return wrapper
 
 
-print_full_name('Jakov', 'Melman')
+class Lucy(object):
+
+    def __init__(self):
+        self.age = 32
+
+    @method_friendly_dekorator
+    def sayyourage(self, lie):
+        print('I\'m {}, but what do you think, how old am I?'.format(self.age + lie))
+
+
+l = Lucy()
+l.sayyourage(-3)
