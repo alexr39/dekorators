@@ -61,22 +61,65 @@
 # print_full_name('Jakov', 'Melman')
 
 
-def method_friendly_dekorator(method_to_decorate):
-    def wrapper(self, lie):
-        lie -= 3
-        return method_to_decorate(self, lie)
-    return wrapper
+# def method_friendly_dekorator(method_to_decorate):
+#     def wrapper(self, lie):
+#         lie -= 3
+#         return method_to_decorate(self, lie)
+#     return wrapper
+#
+#
+# class Lucy(object):
+#
+#     def __init__(self):
+#         self.age = 32
+#
+#     @method_friendly_dekorator
+#     def sayyourage(self, lie):
+#         print('I\'m {}, but what do you think, how old am I?'.format(self.age + lie))
+#
+#
+# l = Lucy()
+# l.sayyourage(-3)
 
 
-class Lucy(object):
+def a_decorator_passing_arbitary_arguments(function_to_decorate):
+    def a_wrapper_accepting_arbitary_arguments(*args, **kwargs):
+        print('Pushed anything to me?:')
+        print(args)
+        print(kwargs)
+        function_to_decorate(*args, **kwargs)
+    return a_wrapper_accepting_arbitary_arguments
+
+
+@a_decorator_passing_arbitary_arguments
+def function_with_no_argument():
+    print('No arguments here')
+
+function_with_no_argument()
+
+@a_decorator_passing_arbitary_arguments
+def function_with_arguments(a,b,c):
+    print(a, b, c)
+
+function_with_arguments(1,2,3)
+
+
+@a_decorator_passing_arbitary_arguments
+def function_with_named_arguments(a, b, c, platypus = 'Why not?'):
+    print('lovely {0} {1} {2}? {3}'.format(a, b, c, platypus))
+
+function_with_named_arguments('Bill', 'Lucy', 'Jack', platypus='Of course!')
+
+
+class Mary(object):
+
 
     def __init__(self):
-        self.age = 32
+        self.age = 31
 
-    @method_friendly_dekorator
-    def sayyourage(self, lie):
-        print('I\'m {}, but what do you think, how old am I?'.format(self.age + lie))
+    @a_decorator_passing_arbitary_arguments
+    def sayyourname(self, lie = -3):
+        print('I\'m {} yo'.format(self.age + lie))
 
-
-l = Lucy()
-l.sayyourage(-3)
+m = Mary()
+m.sayyourname()
