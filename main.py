@@ -28,19 +28,33 @@
 
 # dosomethingbefore(scream)
 
-def my_new_dekorator(a_function_to_decorate):
-    def the_wrapper_arround_original_function():
-        print('This is code before original function running\n')
-        a_function_to_decorate()
-        print('This is code after original function\n')
+# def my_new_dekorator(a_function_to_decorate):
+#     def the_wrapper_arround_original_function():
+#         print('This is code before original function running\n')
+#         a_function_to_decorate()
+#         print('This is code after original function\n')
+#
+#     return the_wrapper_arround_original_function()
+#
+# @my_new_dekorator
+# def a_stand_alone_function():
+#     print('Just a simple function, please dont change me!\n')
+#
+#
+# # a_stand_alone_function()
+#
+# a_stand_alone_function
 
-    return the_wrapper_arround_original_function()
 
-@my_new_dekorator
-def a_stand_alone_function():
-    print('Just a simple function, please dont change me!\n')
+def a_decorator_passing_arguments(function_to_decorate):
+    def a_wrapper_accepting_arguments(arg1, arg2):
+        print('Lets see what i have here:', arg1, arg2)
+        function_to_decorate(arg1, arg2)
+    return a_wrapper_accepting_arguments
+
+@a_decorator_passing_arguments
+def print_full_name(first_name, last_name):
+    print('My name is {} and last name is {}'.format(first_name, last_name))
 
 
-# a_stand_alone_function()
-
-a_stand_alone_function
+print_full_name('Jakov', 'Melman')
