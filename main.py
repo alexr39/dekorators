@@ -191,4 +191,7 @@ def decorate_function_with_arguments(function_arg1, function_arg2):
     print('I\'m function for decoration and I know only about my arguments {0} and {1}'.format(function_arg1, function_arg2))
 
 
-decorate_function_with_arguments('Radjesh', 'Hovard')
+c1 = 'Penni'
+c2 = 'Lesli'
+
+decorate_function_with_arguments(c1, c2)
